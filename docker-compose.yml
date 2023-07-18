@@ -1,0 +1,32 @@
+version: '3'
+services:
+  nginx_server:
+    image: nginx
+    links:
+      - web
+    volumes:
+      - ./loadbalancer:/etc/nginx/conf.d
+    ports:
+      - "18081:80"
+    depends_on:
+      - web
+
+  db:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:80
+    ports:
+      - 18082-18083:80
+    depends_on:
+      - db
+    links:
+      - db
+
+volumes:
+  postgres_data:
