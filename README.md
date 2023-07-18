@@ -22,3 +22,7 @@ docker exec -it django-lb-sample-web-1 bash ;
 ## サイトアクセス
 
 http://localhost:18081/
+
+# 留意事項
+
+- クッキーの取り扱い等、セキュリティ的に不十分な可能性があるので、要調査。
